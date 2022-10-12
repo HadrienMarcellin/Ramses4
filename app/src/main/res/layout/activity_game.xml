@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C89208"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.Ramses4.FullscreenContainer"
+    tools:context=".activity.GameActivity">
+
+    <FrameLayout
+        android:id="@+id/board_screen_framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8">
+        <FrameLayout
+            android:id="@+id/board_framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="30dp"
+            android:layout_gravity="center">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/board_recyclerview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/ramses_deep_red"
+                android:isScrollContainer="false"
+                android:overScrollMode="never" />
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2">
+
+        <LinearLayout
+        android:id="@+id/side_panel_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/player_name_textview"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/caesar_dressing"
+                android:textColor="#70350A"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeMaxTextSize="30sp"/>
+
+            <TextView
+                android:id="@+id/player_score_textview"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/caesar_dressing"
+                android:textColor="#70350A"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeMaxTextSize="30sp"
+                />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/controls_framelayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5">
+
+            <TableLayout
+                android:id="@+id/controle_table"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <TableRow>
+
+                    <Button
+                        android:id="@+id/top_button"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_column="1"
+                        android:background="@android:drawable/arrow_up_float" />
+                </TableRow>
+
+                <TableRow>
+
+                    <Button
+                        android:id="@+id/left_button"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@android:drawable/arrow_up_float"
+                        android:rotation="-90" />
+
+                    <ImageButton
+                        android:id="@+id/right_button"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_column="2"
+                        android:background="@android:drawable/arrow_up_float"
+                        android:rotation="90" />
+                </TableRow>
+
+                <TableRow>
+
+                    <ImageButton
+                        android:id="@+id/bottom_button"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_column="1"
+                        android:background="@android:drawable/arrow_up_float"
+                        android:rotation="180" />
+                </TableRow>
+            </TableLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:padding="20dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotationY="1"
+                app:cardBackgroundColor="#8A8A4B19"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:cardPreventCornerOverlap="true">
+
+                <ImageView
+                    android:id="@+id/target_image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7"
+                    app:srcCompat="@mipmap/treasure_toutankamon">
+
+                </ImageView>
+            </androidx.cardview.widget.CardView>
+
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/ThemeOverlay.Ramses4.FullscreenContainer"
+    android:layout_marginStart="1dp"
+    android:layout_marginEnd="1dp"
+    android:layout_marginTop="5dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/playername_settings_textview"
+        android:layout_weight="1"
+        android:textSize="18sp"
+        android:layout_width="0dp"
+        android:gravity="center_vertical"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:text="Pseudo">
+    </TextView>
+
+    <EditText
+        android:id="@+id/playername_settings_editText"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:minWidth="150dp"
+        android:textSize="18sp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:text="Pseudo"/>
+
+    <ImageButton
+        android:id="@+id/player_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="5dp"
+        android:background="#00FFFFFF"
+        tools:src="@android:drawable/ic_menu_add" />
+
+</LinearLayout>
