@@ -9,6 +9,7 @@ Ramses deux est un jeu ou il faut retrouver des objets cachés.
 - Améliorer le design des flèches
 - Finir les dessins des objets cachés
 - Implémenter la règle du vainqueur
+- Aléatoire des trésors
 
 ## Améliorations long terme
 - Ajouter un mode en ligne.

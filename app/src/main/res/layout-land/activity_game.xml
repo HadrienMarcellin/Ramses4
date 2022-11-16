@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C89208"
+    android:background="@mipmap/background"
     android:orientation="horizontal"
     android:theme="@style/ThemeOverlay.Ramses4.FullscreenContainer"
     tools:context=".activity.GameActivity">
+
+<!--    android:background="#C89208"-->
 
     <RelativeLayout
         android:layout_width="30dp"
@@ -176,7 +178,7 @@
                                 android:layout_height="wrap_content"
                                 android:scaleX="0.7"
                                 android:scaleY="0.7"
-                                app:srcCompat="@mipmap/treasure_toutankamon">
+                                app:srcCompat="@mipmap/toutankamon">
                             </ImageView>
                         </androidx.cardview.widget.CardView>
 

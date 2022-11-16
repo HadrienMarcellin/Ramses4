@@ -6,6 +6,7 @@ import com.example.ramses4.utils.VibratorHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class Referee {
 
@@ -82,6 +83,7 @@ public class Referee {
                         id++));
             }
         }
+        Collections.shuffle(treasures);
     }
 
     public void createTargets() {
@@ -110,10 +112,19 @@ public class Referee {
         treasureIds.add(R.mipmap.diamant);
         treasureIds.add(R.mipmap.souris);
         treasureIds.add(R.mipmap.oeil);
+        treasureIds.add(R.mipmap.toutankamon);
+        treasureIds.add(R.mipmap.toile);
+        treasureIds.add(R.mipmap.stele);
+        treasureIds.add(R.mipmap.dentier);
+        treasureIds.add(R.mipmap.cles);
+        treasureIds.add(R.mipmap.radio);
+        treasureIds.add(R.mipmap.rouleau);
+        treasureIds.add(R.mipmap.sandales);
+        treasureIds.add(R.mipmap.stabilos);
 
         for (int i = treasureIds.size(); i < size; i++)
-            treasureIds.add(R.mipmap.treasure_toutankamon);
+            treasureIds.add(R.mipmap.toutankamon);
 
-        return treasureIds;
+        return treasureIds.stream().limit(size).collect(Collectors.toCollection(ArrayList::new));
     }
 }

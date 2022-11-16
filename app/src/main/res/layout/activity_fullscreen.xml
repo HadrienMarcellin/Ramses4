@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:text="New Game"
+                android:text="Local Game"
                 android:fontFamily="@font/caesar_dressing"/>
 
             <Button
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:text="Quit"
+                android:text="Online Game"
                 android:fontFamily="@font/caesar_dressing"/>
         </LinearLayout>
     </FrameLayout>
