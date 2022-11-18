@@ -1,6 +1,8 @@
 package com.example.ramses4.activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -55,7 +57,7 @@ public class GameActivity extends AppCompatActivity implements BoardViewAdapter.
         public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
             Position positionStart = board.intToPosition(viewHolder.getAdapterPosition());
             positionManager.setCurrentPosition(positionStart);
-            referee.checkTile(ramsesBoard.getHiddenTileDescription(board.positionToInt(positionManager.getCurrentPosition())), vibratorHandler);
+            referee.checkPlayerMove(ramsesBoard.getHiddenTileDescription(board.positionToInt(positionManager.getCurrentPosition())), vibratorHandler);
             updateView();
             return true;
         }
@@ -85,7 +87,7 @@ public class GameActivity extends AppCompatActivity implements BoardViewAdapter.
             switch (motionEvent.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     positionManager.goUp();
-                    referee.checkTile(ramsesBoard.getHiddenTileDescription(board.positionToInt(positionManager.getCurrentPosition())), vibratorHandler);
+                    referee.checkPlayerMove(ramsesBoard.getHiddenTileDescription(board.positionToInt(positionManager.getCurrentPosition())), vibratorHandler);
                     updateView();
                     break;
                 case MotionEvent.ACTION_UP:
@@ -105,7 +107,7 @@ public class GameActivity extends AppCompatActivity implements BoardViewAdapter.
             switch (motionEvent.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     positionManager.goDown();
-                    referee.checkTile(ramsesBoard.getHiddenTileDescription(board.positionToInt(positionManager.getCurrentPosition())), vibratorHandler);
+                    referee.checkPlayerMove(ramsesBoard.getHiddenTileDescription(board.positionToInt(positionManager.getCurrentPosition())), vibratorHandler);
                     updateView();
                     break;
                 case MotionEvent.ACTION_UP:
@@ -125,7 +127,7 @@ public class GameActivity extends AppCompatActivity implements BoardViewAdapter.
             switch (motionEvent.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     positionManager.goRight();
-                    referee.checkTile(ramsesBoard.getHiddenTileDescription(board.positionToInt(positionManager.getCurrentPosition())), vibratorHandler);
+                    referee.checkPlayerMove(ramsesBoard.getHiddenTileDescription(board.positionToInt(positionManager.getCurrentPosition())), vibratorHandler);
                     updateView();
                     break;
                 case MotionEvent.ACTION_UP:
@@ -145,7 +147,7 @@ public class GameActivity extends AppCompatActivity implements BoardViewAdapter.
             switch (motionEvent.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     positionManager.goLeft();
-                    referee.checkTile(ramsesBoard.getHiddenTileDescription(board.positionToInt(positionManager.getCurrentPosition())), vibratorHandler);
+                    referee.checkPlayerMove(ramsesBoard.getHiddenTileDescription(board.positionToInt(positionManager.getCurrentPosition())), vibratorHandler);
                     updateView();
                     break;
                 case MotionEvent.ACTION_UP:
@@ -238,11 +240,37 @@ public class GameActivity extends AppCompatActivity implements BoardViewAdapter.
     }
 
     private void updateView() {
+
         playerName.setText(referee.getCurrentPlayer().getName());
         playerScore.setText(referee.getCurrentPlayer().getScoreAsString());
 
-        targetPanel.setImageResource(referee.getCurrentTarget().getDrawableId());
-        targetPoints.setText(referee.getCurrentTarget().getScoreAsString());
+        if (referee.getWinner() != null) {
+            // TODO : Display fragment
+
+            targetPanel.setImageResource(android.R.color.transparent);
+            targetPoints.setText("");
+
+            new AlertDialog.Builder(this)
+                .setTitle("Winner !!")
+                .setMessage(referee.getWinner().getName() + " won with " + referee.getWinner().getScore() + " points ! \nStart a new game ?")
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO: reset game
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+
+        } else {
+            targetPanel.setImageResource(referee.getCurrentTarget().getDrawableId());
+            targetPoints.setText(referee.getCurrentTarget().getScoreAsString());
+        }
 
         LinearLayout sidepanel = findViewById(R.id.side_panel_linearlayout);
         sidepanel.invalidate();
@@ -271,7 +299,7 @@ public class GameActivity extends AppCompatActivity implements BoardViewAdapter.
         } else
             players = settings.getPlayers();
 
-        this.referee = new Referee(players, board);
+        this.referee = new Referee(players, board, settings.getMaxScore());
         this.ramsesBoard = new RamsesBoard(board, referee.getTreasures());
 
         // Controls

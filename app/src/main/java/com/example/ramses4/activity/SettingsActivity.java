@@ -7,8 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import com.example.ramses4.R;
 import com.example.ramses4.adapter.PlayerSettingsAdapter;
@@ -42,6 +45,24 @@ public class SettingsActivity extends AppCompatActivity implements PlayerSetting
         }
     };
 
+    AdapterView.OnItemSelectedListener mMaxScoreSpinnerListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            String item = (String) parent.getItemAtPosition(position);
+            if (item.equals("10"))
+                settings.setMaxScore(10);
+            if(item.equals("20"))
+                settings.setMaxScore(20);
+            if (item.equals("50"))
+                settings.setMaxScore(50);
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+            settings.setMaxScore(20);
+        }
+    };
+
     private ActivitySettingsBinding binding;
 
     @Override
@@ -54,12 +75,17 @@ public class SettingsActivity extends AppCompatActivity implements PlayerSetting
         binding.playersSettingsRecyclerview.setNestedScrollingEnabled(false);
         binding.activateArrowControlsSwitch.setOnCheckedChangeListener(mArrowControlsSwitchListener);
         binding.difficultiesRadiobutton.setOnCheckedChangeListener(mDifficultyRadioGroupListener);
+        binding.maxScoreSpinner.setOnItemSelectedListener(mMaxScoreSpinnerListener);
         binding.settingsOkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
+
+        String[] maxScores = new String[]{"10", "20", "50"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, maxScores);
+        binding.maxScoreSpinner.setAdapter(adapter);
 
         // Init game
         settings = new Settings(getIntent().getExtras());
@@ -80,6 +106,7 @@ public class SettingsActivity extends AppCompatActivity implements PlayerSetting
     private void initPlayerDisplay() {
         binding.difficultiesRadiobutton.check(convertDifficultyId(settings.getDifficulty()));
         binding.activateArrowControlsSwitch.setChecked(settings.hasArrowControls());
+        binding.maxScoreSpinner.setSelection(1);
         PlayerSettingsAdapter playerSettingsAdapter = new PlayerSettingsAdapter(settings.getPlayers(), this);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         RecyclerView recyclerView = findViewById(R.id.players_settings_recyclerview);

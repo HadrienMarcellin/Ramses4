@@ -18,12 +18,15 @@ public class Referee {
     private final ArrayList<Player> players;
     private Player currentPlayer;
 
-    public Referee(ArrayList<Player> players, Board board) {
+    private Integer maxScore;
+
+    public Referee(ArrayList<Player> players, Board board, Integer maxScore) {
         createTreasures(board);
         createTargets();
         this.players = players;
-        currentTarget = targets.get(0);
-        currentPlayer = players.get(0);
+        this.currentTarget = targets.get(0);
+        this.currentPlayer = players.get(0);
+        this.maxScore = maxScore;
         incrementTarget();
     }
 
@@ -59,17 +62,21 @@ public class Referee {
         currentPlayer = players.get(nextPlayerIndex);
     }
 
-    public void checkTile(Tile tile, VibratorHandler vibrator) {
-        if(isCurrentTarget(tile)) {
+    public void checkPlayerMove(Tile newTile, VibratorHandler vibrator) {
+        if(isCurrentTarget(newTile)) {
             currentPlayer.addPointsToScore(currentTarget.getScore());
             incrementTarget();
             vibrator.vibrateForSuccess();
             return;
         }
-        if (isTreasure(tile)) {
+        if (isTreasure(newTile)) {
             vibrator.vibrateForFailure();
             incrementPlayer();
         }
+    }
+
+    public Player getWinner() {
+        return players.stream().filter(p -> p.getScore() > maxScore).findFirst().orElse(null);
     }
 
     public void createTreasures(Board board) {
