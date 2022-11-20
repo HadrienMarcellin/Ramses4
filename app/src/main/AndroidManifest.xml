@@ -28,7 +28,7 @@
         <activity
             android:name=".activity.GameActivity"
             android:exported="false"
-            android:configChanges="screenSize"
+            android:configChanges="keyboardHidden|screenSize"
             android:screenOrientation="landscape"
             android:label="Game"
             android:theme="@style/Theme.Ramses4.Fullscreen">
