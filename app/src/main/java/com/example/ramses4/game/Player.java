@@ -10,6 +10,11 @@ public class Player {
         this.score = score;
     }
 
+    @Override
+    public Player clone() {
+        return new Player(this.name, this.score);
+    }
+
     public String getName() {
         return name;
     }
